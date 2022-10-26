@@ -13,7 +13,7 @@ public class Inventory_Organizer : MonoBehaviour
     private void Update()
     {
         //Função para fazer os items que não estejam na mão do personagem desaparecer 
-        //Precisa ser atualizada na próxima versão
+        //Precisa ser atualizada na próxima versão.
         foreach(GameObject items in inventory)
             if(items!=null)
                 if(items==inventory[handing])
@@ -73,6 +73,7 @@ public class Inventory_Organizer : MonoBehaviour
         {
             inventory[handing].GetComponent<Collider>().enabled = true;
             inventory[handing].transform.SetParent(null);
+            inventory[handing].GetComponent<Rigidbody>().useGravity = true;
             inventory[handing] = null;
         }
         else
@@ -86,9 +87,14 @@ public class Inventory_Organizer : MonoBehaviour
         if(inventory[handing]!=null)
         {
             if(inventory[handing].transform.position != hand.transform.position)
+            {
                 inventory[handing].transform.position = hand.transform.position;
+                print("O Item foi movido para mão");
+            }
+                
             inventory[handing].transform.SetParent(hand.transform);
             inventory[handing].GetComponent<Collider>().enabled = false;
+            inventory[handing].GetComponent<Rigidbody>().useGravity = false;
         }
     }
 
